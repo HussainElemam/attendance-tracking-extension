@@ -1,6 +1,6 @@
 function checkAttendance() {
   const students = document.getElementsByClassName("student");
-  fetch("attendance-report.json")
+  fetch("../testing/attendance-report.json")
     .then((response) => response.json())
     .then((presents) => {
       let presentsArray = presents;
