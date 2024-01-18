@@ -1,0 +1,15 @@
+body {
+  width: 140px;
+}
+header {
+  text-align: center;
+  font-size: 14px;
+}
+main {
+  margin-block: 10px;
+  text-align: center;
+}
+#message {
+  color: red;
+  display: none;
+}
