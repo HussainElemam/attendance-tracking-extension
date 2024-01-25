@@ -21,13 +21,13 @@ function checkAttendance() {
         let id = student.querySelector("td:nth-child(2) p a").innerHTML;
         if (presentsArray.includes(id)) {
           let radioButton = student.querySelector(
-            `td:nth-child(${days.get(today.getDay() + 4)}) [value="P"]`
+            `td:nth-child(${today.getDay() + 4}) [value="P"]`
           );
           // make sure the radio button is not disabled
           if (!radioButton.hasAttribute("disabled")) radioButton.checked = true;
         } else {
           let radioButton = student.querySelector(
-            `td:nth-child(${days.get(today.getDay() + 4)}) [value="A"]`
+            `td:nth-child(${today.getDay() + 4}) [value="A"]`
           );
           if (!radioButton.hasAttribute("disabled")) radioButton.checked = true;
         }
