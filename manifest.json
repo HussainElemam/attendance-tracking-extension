@@ -6,13 +6,14 @@
   "permissions": ["activeTab", "scripting"],
   "host_permissions": ["http://*.uaeu.ac.ae/*", "file:///"],
   "action": {
+    "default_popup": "popup/popup.html",
     "default_title": "check attendance",
     "default_icon": "images/user-check-solid.png"
   },
   "content_scripts": [
     {
       "matches": ["http://*.uaeu.ac.ae/*", "file:///"],
-      "js": ["scripts/main.js"]
+      "js": ["scripts/service_worker.js"]
     }
   ],
   "background": {

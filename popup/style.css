@@ -1,15 +1,45 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
 body {
-  width: 140px;
+  width: 360px;
+  margin: 0;
 }
 header {
+  background-color: #143a52;
   text-align: center;
   font-size: 14px;
+  padding: 5px;
+  color: #e3eff3;
+}
+h1 {
+  font-size: 24px;
+  margin: 10px;
 }
 main {
   margin-block: 10px;
   text-align: center;
 }
-#message {
+.buttons {
+  margin: 15px auto 5px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+button {
+  background-color: #5a93a9;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  padding: 9px;
+  margin: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #5ca6c3;
+}
+#error {
   color: red;
   display: none;
 }
