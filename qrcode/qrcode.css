@@ -1,0 +1,9 @@
+#qrcode-container {
+  position: absolute;
+  left: calc(50% - 30vh);
+  top: 20vh;
+}
+#qrcode {
+  width: 60vh;
+  height: 60vh;
+}

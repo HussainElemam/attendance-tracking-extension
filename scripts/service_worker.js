@@ -36,12 +36,6 @@ function checkAttendance() {
     .catch((error) => console.error(error));
 }
 
-// function to display the QRCode
-// todo making the function after getting the data
-// function displayQRCode() {
-
-// }
-
 // listen for the message whick will come after clicking on the mark attendance button
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "markAttendance") {

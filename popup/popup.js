@@ -1,6 +1,7 @@
 // send message to the servic_worker.js if the user clicked the getQRCode button with the appropriat message
 document.getElementById("getQRCode").addEventListener("click", function () {
-  chrome.runtime.sendMessage({ action: "getQRCode" });
+  // chrome.runtime.sendMessage({ action: "getQRCode" });
+  openQRCodeWindow();
 });
 
 // send message to the servic_worker.js if the user clicked the markAttendace button
@@ -17,3 +18,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     document.getElementById("error").style.display = "block";
   }
 });
+
+function openQRCodeWindow() {
+  // create the qrcode window
+  chrome.tabs.create({ url: chrome.runtime.getURL("../qrcode/qrcode.html") });
+}
