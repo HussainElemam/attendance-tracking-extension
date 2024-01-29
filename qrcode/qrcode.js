@@ -13,7 +13,7 @@ function generateQRCode(url) {
   const qr = new QRCode(document.getElementById("qrcode"), {
     text: url,
     // length and height of the qrcode is 60% of the viewport height may change later
-    width: 0.8 * vh,
-    height: 0.8 * vh,
+    width: 0.6 * vh,
+    height: 0.6 * vh,
   });
 }
