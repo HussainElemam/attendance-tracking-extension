@@ -1,5 +1,7 @@
+let errorMsg = document.getElementById("error");
 // send message to the servic_worker.js if the user clicked the getQRCode button with the appropriat message
 document.getElementById("getQRCode").addEventListener("click", function () {
+  errorMsg.innerHTML = "";
   // chrome.runtime.sendMessage({ action: "getQRCode" });
   openQRCodeWindow();
 });
@@ -8,6 +10,7 @@ document.getElementById("getQRCode").addEventListener("click", function () {
 document
   .getElementById("markAttendance")
   .addEventListener("click", function () {
+    errorMsg.innerHTML = "";
     chrome.runtime.sendMessage({ action: "markAttendance" });
   });
 
@@ -15,11 +18,37 @@ document
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "urlMismatch") {
     // Update the message in the popup
-    document.getElementById("error").style.display = "block";
+    document.getElementById("error").innerHTML =
+      "Please go to the attendance page then try again!";
   }
 });
 
+// if there is no attendance in today's date
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "dateMismatch") {
+    // Update the message in the popup
+    document.getElementById("error").innerHTML =
+      "It seems that you don't have a class today";
+  }
+});
+
+// if the file does not exist that means no student used the qrcode
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "fileNotExist") {
+    // Update the message in the popup
+    document.getElementById("error").innerHTML =
+      "Please make sure to show the qrcode to the studenst before marking the attendance";
+  }
+});
+
+let vh = window.innerHeight;
+let vw = window.innerWidth;
 function openQRCodeWindow() {
   // create the qrcode window
-  chrome.tabs.create({ url: chrome.runtime.getURL("../qrcode/qrcode.html") });
+  chrome.windows.create({
+    url: chrome.runtime.getURL("../qrcode/qrcode.html"),
+    type: "popup",
+    width: 900,
+    height: 900,
+  });
 }

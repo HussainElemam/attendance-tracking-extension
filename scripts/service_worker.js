@@ -1,7 +1,14 @@
 // this function will be called when the "mark attendance" buttom is clicked
 // It will fetch the student list and go through the html page and compare the ids
+let time = "";
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "sendDate") {
+    time = request.data;
+    console.log(time);
+  }
+});
 // and mark the attendance accordingly
-function checkAttendance() {
+async function checkAttendance(time) {
   // get the day of the week to knew the correct column for the attendance
   let today = new Date();
 
@@ -11,29 +18,40 @@ function checkAttendance() {
   );
 
   // fetch the data from the testing file later will get the data from the database
-  // todo fetch the real data
-  fetch("../testing/attendance-report.json")
+  await fetch("https://files.uaeu.club/attendance/csbp301/01/" + time + ".json")
     .then((response) => response.json())
     .then((presents) => {
-      let presentsArray = presents;
       for (let student of students) {
         // get the student id from the raw to check if it exist in the data
         let id = student.querySelector("td:nth-child(2) p a").innerHTML;
-        if (presentsArray.includes(id)) {
+        if (presents[id]) {
           let radioButton = student.querySelector(
             `td:nth-child(${today.getDay() + 4}) [value="P"]`
           );
+          // if today's column is empty return an error message
+          if (radioButton === null) {
+            chrome.runtime.sendMessage({ action: "dateMismatch" });
+            return;
+          }
           // make sure the radio button is not disabled
           if (!radioButton.hasAttribute("disabled")) radioButton.checked = true;
         } else {
           let radioButton = student.querySelector(
             `td:nth-child(${today.getDay() + 4}) [value="A"]`
           );
+          // if today's column is empty return an error message
+          if (radioButton === null) {
+            chrome.runtime.sendMessage({ action: "dateMismatch" });
+            return;
+          }
           if (!radioButton.hasAttribute("disabled")) radioButton.checked = true;
         }
       }
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      chrome.runtime.sendMessage({ action: "fileNotExist" });
+      console.error(error);
+    });
 }
 
 // listen for the message whick will come after clicking on the mark attendance button
@@ -52,28 +70,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.scripting.executeScript({
           target: { tabId: currentTab.id },
           function: checkAttendance,
-        });
-      } else {
-        chrome.runtime.sendMessage({ action: "urlMismatch" });
-      }
-    });
-  }
-});
-
-// listen for the other button getQRCode
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.action === "getQRCode") {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const currentTab = tabs[0];
-
-      if (
-        currentTab &&
-        currentTab.url &&
-        currentTab.url.includes("attendence-html-page.html")
-      ) {
-        chrome.scripting.executeScript({
-          target: { tabId: currentTab.id },
-          function: displayQRCode,
+          args: [time],
         });
       } else {
         chrome.runtime.sendMessage({ action: "urlMismatch" });

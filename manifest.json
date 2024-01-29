@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "attendance checker",
-  "description": "It reads a json file that contain all presnt students and then iterate over the attendance page and check for the id if it is not in the file it will mark the student as absent",
+  "description": "Helpes UAEU instructors for tracking attendance",
   "version": "1.0",
   "permissions": ["activeTab", "scripting"],
   "host_permissions": ["http://*.uaeu.ac.ae/*", "file:///"],
@@ -13,10 +13,16 @@
   "content_scripts": [
     {
       "matches": ["http://*.uaeu.ac.ae/*", "file:///"],
-      "js": ["scripts/service_worker.js"]
+      "js": ["scripts/service_worker.js", "qrcode/qrcode.js"]
     }
   ],
   "background": {
-    "service_worker": "scripts/service_worker.js"
+    "service_worker": "scripts/service_worker.js",
+    "type": "module"
+  },
+  "icons": {
+    "32": "images/32ce.png",
+    "48": "images/48ce.png",
+    "128": "images/128ce2.png"
   }
 }

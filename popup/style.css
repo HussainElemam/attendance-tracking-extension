@@ -41,5 +41,5 @@ button:hover {
 }
 #error {
   color: red;
-  display: none;
+  display: block;
 }
