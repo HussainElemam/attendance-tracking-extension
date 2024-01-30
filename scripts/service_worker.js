@@ -1,10 +1,9 @@
 // this function will be called when the "mark attendance" buttom is clicked
 // It will fetch the student list and go through the html page and compare the ids
-let time = "";
+let unixTime;
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "sendDate") {
-    time = request.data;
-    console.log(time);
+    unixTime = request.data;
   }
 });
 // and mark the attendance accordingly
@@ -70,7 +69,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         chrome.scripting.executeScript({
           target: { tabId: currentTab.id },
           function: checkAttendance,
-          args: [time],
+          args: [unixTime],
         });
       } else {
         chrome.runtime.sendMessage({ action: "urlMismatch" });
