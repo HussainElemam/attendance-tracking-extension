@@ -61,19 +61,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
       // first make sure we are in the attendance bage else display an error message
       // todo changin the url to the real url this one is for testin
-      if (
-        currentTab &&
-        currentTab.url &&
-        currentTab.url.includes("attendence-html-page.html")
-      ) {
-        chrome.scripting.executeScript({
-          target: { tabId: currentTab.id },
-          function: checkAttendance,
-          args: [unixTime],
-        });
-      } else {
-        chrome.runtime.sendMessage({ action: "urlMismatch" });
-      }
+      //   if (
+      //     currentTab &&
+      //     currentTab.url &&
+      //     currentTab.url.includes("attendence-html-page.html")
+      //   ) {
+      //     chrome.scripting.executeScript({
+      //       target: { tabId: currentTab.id },
+      //       function: checkAttendance,
+      //       args: [unixTime],
+      //     });
+      //   } else {
+      //     chrome.runtime.sendMessage({ action: "urlMismatch" });
+      //   }
+      chrome.scripting.executeScript({
+        target: { tabId: currentTab.id },
+        function: checkAttendance,
+        args: [unixTime],
+      });
     });
   }
 });

@@ -4,15 +4,15 @@
   "description": "Helpes UAEU instructors for tracking attendance",
   "version": "1.0",
   "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["http://*.uaeu.ac.ae/*", "file:///"],
+  "host_permissions": ["<all_urls>", "http://*.uaeu.ac.ae/*", "file:///"],
   "action": {
     "default_popup": "popup/popup.html",
     "default_title": "check attendance",
-    "default_icon": "images/user-check-solid.png"
+    "default_icon": "images/icon.png"
   },
   "content_scripts": [
     {
-      "matches": ["http://*.uaeu.ac.ae/*", "file:///"],
+      "matches": ["<all_urls>", "http://*.uaeu.ac.ae/*", "file:///"],
       "js": ["scripts/service_worker.js", "qrcode/qrcode.js"]
     }
   ],
