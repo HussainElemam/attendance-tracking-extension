@@ -1,9 +1,9 @@
 // generate the qrcode once the window is created
 document.body.onload = function () {
-  // fetch the url to generate the qrcode
   let time = Date.now().toString();
+  console.log("time is: " + time);
   generateQRCode("attendance.uaeu.club/" + time);
-  chrome.runtime.sendMessage({ action: "sendDate", data: time });
+  chrome.runtime.sendMessage({ action: "sendTime", data: time });
 };
 
 // get the window height dynamicaly to use it for the qrcode size

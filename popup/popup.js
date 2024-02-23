@@ -2,8 +2,7 @@ let errorMsg = document.getElementById("error");
 // send message to the servic_worker.js if the user clicked the getQRCode button with the appropriat message
 document.getElementById("getQRCode").addEventListener("click", function () {
   errorMsg.innerHTML = "";
-  // chrome.runtime.sendMessage({ action: "getQRCode" });
-  openQRCodeWindow();
+  window.open("../qrcode/qrcode.html", "_blank");
 });
 
 // send message to the servic_worker.js if the user clicked the markAttendace button
@@ -40,15 +39,3 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       "Please make sure to show the qrcode to the studenst before marking the attendance";
   }
 });
-
-let vh = window.innerHeight;
-let vw = window.innerWidth;
-function openQRCodeWindow() {
-  // create the qrcode window
-  chrome.windows.create({
-    url: chrome.runtime.getURL("../qrcode/qrcode.html"),
-    type: "popup",
-    width: 900,
-    height: 900,
-  });
-}

@@ -4,7 +4,7 @@
   "description": "Helpes UAEU instructors for tracking attendance",
   "version": "1.0",
   "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["<all_urls>", "http://*.uaeu.ac.ae/*", "file:///"],
+  "host_permissions": ["http://*.uaeu.ac.ae/*", "file:///*"],
   "action": {
     "default_popup": "popup/popup.html",
     "default_title": "check attendance",
@@ -12,12 +12,13 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>", "http://*.uaeu.ac.ae/*", "file:///"],
-      "js": ["scripts/service_worker.js", "qrcode/qrcode.js"]
+      "matches": ["http://*.uaeu.ac.ae/*", "file:///*"],
+      "js": ["scripts/content-script.js"],
+      "run_at": "document_start"
     }
   ],
   "background": {
-    "service_worker": "scripts/service_worker.js",
+    "service_worker": "scripts/background.js",
     "type": "module"
   },
   "icons": {
