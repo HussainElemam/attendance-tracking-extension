@@ -3,12 +3,9 @@
   chrome.runtime.onMessage.addListener((obj, sender, response) => {
     if (obj.action === "MarkAttendanceInPage") {
       let presents = obj.data;
-      console.log("Data reached the content_script.js lastly");
       console.log(presents);
 
       let today = new Date();
-      // let today = new Date("2024-2-27");
-      console.log(today);
 
       // get all raws from the table expect first (the header)
       const students = document.querySelectorAll(

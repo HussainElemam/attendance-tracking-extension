@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "attendance checker",
-  "description": "Helpes UAEU instructors for tracking attendance",
+  "name": "Attendance Tracker",
+  "description": "UAEU attendance tracking extension",
   "version": "1.1",
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab"],
   "host_permissions": ["http://*.uaeu.ac.ae/*", "file:///*"],
   "action": {
     "default_popup": "popup/popup.html",

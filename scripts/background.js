@@ -21,16 +21,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           currentTab.url &&
           currentTab.url.includes("uaeu.ac.ae")
         ) {
-          let presentStudents;
           // fetch the data from the testing file later will get the data from the database
           await fetch(
             "https://files.uaeu.club/attendance/csbp301/01/" +
               unixTime +
               ".json"
           )
+            // await fetch("../test.json")
             .then((response) => response.json())
             .then((presents) => {
-              presentStudents = presents;
               chrome.tabs.sendMessage(currentTab.id, {
                 action: "MarkAttendanceInPage",
                 data: presents,
